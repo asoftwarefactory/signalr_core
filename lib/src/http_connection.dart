@@ -119,7 +119,7 @@ class HttpConnection implements Connection {
   HttpConnection({
     required String? url,
     required HttpConnectionOptions options,
-  })   : baseUrl = url,
+  })  : baseUrl = url,
         _client = (options.client != null)
             ? options.client
             : http.Client() as http.BaseClient,
@@ -401,6 +401,10 @@ class HttpConnection implements Connection {
       if (token != null) {
         headers['Authorization'] = 'Bearer $token';
       }
+    }
+
+    if (_options.customHeaders != null) {
+      headers.addAll(_options.customHeaders!);
     }
 
     final negotiateUrl = _resolveNegotiateUrl(url);
